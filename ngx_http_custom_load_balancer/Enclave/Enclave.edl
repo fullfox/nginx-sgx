@@ -1,0 +1,100 @@
+/*
+
+Copyright 2018 Intel Corporation
+
+This software and the related documents are Intel copyrighted materials,
+and your use of them is governed by the express license under which they
+were provided to you (License). Unless the License provides otherwise,
+you may not use, modify, copy, publish, distribute, disclose or transmit
+this software or the related documents without Intel's prior written
+permission.
+
+This software and the related documents are provided as is, with no
+express or implied warranties, other than those that are expressly stated
+in the License.
+
+*/
+
+#ifndef _WIN32
+#include "../config.h"
+#endif
+
+enclave {
+	include "sgx_trts.h"
+	include "sgx_utils.h"
+	include "sgx_tkey_exchange.h"
+
+	from "sgx_tkey_exchange.edl" import *;
+	from "sgx_tsgxssl.edl" import *;
+	from "sgx_pthread.edl" import *;
+
+    include "user_types.h" /* buffer_t */
+
+    /* Import ECALL/OCALL from sub-directory EDLs.
+     *  [from]: specifies the location of EDL file.
+     *  [import]: specifies the functions to import,
+     *  [*]: implies to import all functions.
+     */
+
+    from "Edger8rSyntax/Types.edl" import *;
+    from "Edger8rSyntax/Pointers.edl" import *;
+    from "Edger8rSyntax/Arrays.edl" import *;
+    from "Edger8rSyntax/Functions.edl" import *;
+
+    from "TrustedLibrary/Libc.edl" import *;
+    from "TrustedLibrary/Libcxx.edl" import ecall_exception, ecall_map;
+    from "TrustedLibrary/Thread.edl" import *;
+
+
+
+	trusted {
+#ifndef _WIN32
+		include "../config.h"
+#endif
+		public int ecall_check_and_store_peers_to_enclave([user_check] void * peers_ptr);
+
+		public int ecall_decrypt_msg5([in, size=2184] void * cipherdata, int len);
+
+		public void ecall_empty();
+		public int ecall_sign_http_request([in, string] char * http_request, int request_length, [out, size=32] char * decision_u, [out, size=256] char * signature_u);
+		public int ecall_sign_batch_http_request( [user_check] char * batch_buffer, [out, size=32] char * decision_u, [out, size=384] char * signature_u);
+
+		public sgx_status_t get_report([out] sgx_report_t *report,
+			[in] sgx_target_info_t *target_info);
+
+#ifdef _WIN32
+		public size_t get_pse_manifest_size();
+
+		public sgx_status_t get_pse_manifest([out, count=sz] char *buf, size_t sz);
+#endif
+
+		public sgx_status_t enclave_ra_init(sgx_ec256_public_t key, int b_pse,
+			[out] sgx_ra_context_t *ctx, [out] sgx_status_t *pse_status);
+
+		public sgx_status_t enclave_ra_init_def(int b_pse,
+			[out] sgx_ra_context_t *ctx, [out] sgx_status_t *pse_status);
+
+		public sgx_status_t enclave_ra_get_key_hash(
+			[out] sgx_status_t *get_keys_status, sgx_ra_context_t ctx,
+			sgx_ra_key_type_t type, [out] sgx_sha256_hash_t *hash);
+
+		public sgx_status_t enclave_ra_close(sgx_ra_context_t ctx);
+
+	};
+
+	untrusted {
+#ifndef _WIN32
+		include "../config.h"
+#endif
+		void ocall_print_string([in, string] const char *str);
+	};
+};
+
+
+
+
+
+
+
+
+

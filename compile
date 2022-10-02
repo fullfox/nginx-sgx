@@ -1,0 +1,20 @@
+#!/bin/bash
+
+NGINX_DIR="nginx-1.22.0"
+
+
+cd ngx_http_custom_load_balancer
+make
+cd ..
+
+cd $NGINX_DIR
+make
+make install
+cd ..
+
+cd sgx-ra-sample
+./make_lib
+cd ..
+
+cp ngx_http_custom_load_balancer/enclave.signed.so .
+cp sgx-ra-sample/client_lib.so .

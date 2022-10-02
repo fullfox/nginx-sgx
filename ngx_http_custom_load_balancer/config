@@ -1,0 +1,17 @@
+ngx_addon_name=ngx_http_custom_load_balancer
+HTTP_MODULES="$HTTP_MODULES ngx_http_custom_load_balancer_module"
+#NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/ngx_http_custom_load_balancer.cpp"
+
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/Enclave_u.c"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/App.cpp"
+
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/Edger8rSyntax/Types.cpp"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/Edger8rSyntax/Pointers.cpp"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/Edger8rSyntax/Arrays.cpp"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/Edger8rSyntax/Functions.cpp"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/TrustedLibrary/Thread.cpp"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/TrustedLibrary/Libc.cpp"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/App/TrustedLibrary/Libcxx.cpp"
+
+NGX_ADDON_DEPS="$NGX_ADDON_DEPS $ngx_addon_dir/flags.h"
+

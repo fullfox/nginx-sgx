@@ -1,0 +1,8 @@
+#!/bin/bash
+
+NGINX_DIR="nginx-1.22.0"
+wget https://nginx.org/download/$NGINX_DIR.tar.gz
+tar -xzf $NGINX_DIR.tar.gz
+rm $NGINX_DIR.tar.gz
+cp nginx.conf $NGINX_DIR/conf/nginx.conf
+ln -sr $NGINX_DIR/build/sbin/nginx .

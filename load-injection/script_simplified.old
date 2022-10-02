@@ -1,0 +1,55 @@
+import http from 'k6/http';
+import { check, group, sleep } from 'k6';
+
+const BASE_URL = 'http://0.0.0.0:4000/';
+
+let scenarios_list = {
+  "s0": {
+    executor: 'constant-arrival-rate',
+    rate: 100,
+    duration: '300s',
+    gracefulStop: '0s',
+    startTime: '0s',
+    preAllocatedVUs: 100,
+    maxVUs: 100+100,
+    tags: { duration: '300', rps: '100'},
+  },
+  "s1": {
+    executor: 'constant-arrival-rate',
+    rate: 300,
+    duration: '300s',
+    gracefulStop: '0s',
+    startTime: '300s',
+    preAllocatedVUs: 300,
+    maxVUs: 300+100,
+    tags: { duration: '300', rps: '300'},
+  },
+  "s2": {
+    executor: 'constant-arrival-rate',
+    rate: 500,
+    duration: '300s',
+    gracefulStop: '0s',
+    startTime: '600s',
+    preAllocatedVUs: 500,
+    maxVUs: 500+100,
+    tags: { duration: '300', rps: '500'},
+  },
+  "s3": {
+    executor: 'constant-arrival-rate',
+    rate: 700,
+    duration: '300s',
+    gracefulStop: '0s',
+    startTime: '900s',
+    preAllocatedVUs: 700,
+    maxVUs: 700+100,
+    tags: { duration: '300', rps: '700'},
+  }
+};
+
+export const options = {
+ scenarios: scenarios_list
+};
+
+export default function () {
+  http.get(BASE_URL);
+}

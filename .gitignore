@@ -1,0 +1,14 @@
+.vscode
+client.log
+*.o
+*.so
+.config_HW_DEBUG_x64
+Enclave_u.c
+Enclave_u.h
+Enclave_t.c
+Enclave_t.h
+nginx-1.22.0/
+.deps/
+autom4te.cache/
+load-injection/*.json
+ORIG-nginx-1.22.0/

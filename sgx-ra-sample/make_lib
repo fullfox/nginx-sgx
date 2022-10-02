@@ -1,0 +1,2 @@
+g++ -fPIC -std=c++11 -c client_lib.cpp -I /opt/intel/sgxsdk/lib64/ -I /opt/intel/sgxsdk/include/ -I /opt/intel/sgxsdk/ -I../ngx_http_custom_load_balancer/Include -lsgx_urts -lpthread
+g++ -fPIC -std=c++11  -g -O2 -L/opt/intel/sgxsdk/lib64 -shared -o client_lib.so client_lib.o sgx_detect_linux.o sgx_stub.o quote_size.o byteorder.o common.o crypto.o hexutil.o fileio.o base64.o msgio.o logfile.o Enclave_u.o -lsgx_urts -lsgx_ukey_exchange -lcrypto -l:libsgx_capable.a -lpthread -ldl -lcrypto
